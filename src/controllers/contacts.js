@@ -23,8 +23,6 @@ export const getContactsController = async (req, res) => {
     filter
   });
 
-  // const data = await getAllContacts();
-
   res.json({
     status: 200,
     data: contacts,

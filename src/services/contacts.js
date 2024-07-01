@@ -23,6 +23,10 @@ export const getAllContacts = async ({
     contactsQuery.where('isFavourite').equals(filter.isFavourite);
   }
 
+  if (filter.isFavourite === true) {
+    contactsQuery.where('isFavourite').equals(filter.isFavourite);
+  }
+
   const contactsCount = await ContactsCollection.find()
     .merge(contactsQuery)
     .countDocuments();
