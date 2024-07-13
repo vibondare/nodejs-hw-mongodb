@@ -56,9 +56,14 @@ export const createContact = async (payload) => {
   return contact;
 };
 
-export const upsertContact = async (contactId, payload, options = {}) => {
+export const upsertContact = async (
+  contactId,
+  payload,
+  userId,
+  options = {},
+) => {
   const result = await ContactsCollection.findOneAndUpdate(
-    { _id: contactId },
+    { _id: contactId, userId: userId },
     payload,
     { new: true, includeResultMetadata: true, ...options },
   );
@@ -71,7 +76,7 @@ export const upsertContact = async (contactId, payload, options = {}) => {
   };
 };
 
-export const deleteContact = async (contactId) => {
-  const contact = await ContactsCollection.findOneAndDelete({ _id: contactId });
+export const deleteContact = async (contactId, userId) => {
+  const contact = await ContactsCollection.findOneAndDelete({ _id: contactId, userId: userId });
   return contact;
 };
