@@ -1,7 +1,6 @@
 import ContactsCollection from '../db/models/Contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../constants/index.js';
-// import createHttpError from 'http-errors';
 
 export const getAllContacts = async ({
   page = 1,
