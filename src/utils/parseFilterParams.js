@@ -16,11 +16,9 @@ const parseBoolean = (value) => {
   }
 
   if (value === 'false') {
-    console.log("dog");
     return false;
   }
 
-  console.log("cat");
   return true;
 };
 
