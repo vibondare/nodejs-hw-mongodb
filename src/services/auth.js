@@ -4,6 +4,11 @@ import createHttpError from 'http-errors';
 import { randomBytes } from 'crypto';
 import { FIFTEEN_MINUTES, THIRTY_DAYS } from '../constants/index.js';
 import SessionsCollection from '../db/models/Session.js';
+import jwt from 'jsonwebtoken';
+import { SMTP } from '../constants/index.js';
+import { env } from '../utils/env.js';
+import { sendEmail } from '../utils/sendMail.js';
+import { JWT_SECRET } from '../constants/index.js';
 
 export const findUser = async (filter) => {
   const user = UsersCollection.findOne(filter);
@@ -95,5 +100,33 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
   return await SessionsCollection.create({
     userId: session.userId,
     ...newSession,
+  });
+};
+
+export const requestResetToken = async (email) => {
+  const user = await UsersCollection.findOne({ email });
+  if (!user) {
+    throw createHttpError(404, 'User not found');
+  }
+
+  const resetToken = jwt.sign(
+    {
+      sub: user._id,
+      email,
+    },
+    env(JWT_SECRET),
+    { expiresIn: '15m' },
+  );
+
+  const result = jwt.verify(resetToken, env('JWT_SECRET'));
+
+  console.log(resetToken);
+  console.log(result);
+
+  await sendEmail({
+    from: env(SMTP.SMTP_FROM),
+    to: email,
+    subject: 'Reset your password',
+    html: `<p>Click <a href="${resetToken}">here</a> to reset your password!</p>`,
   });
 };
