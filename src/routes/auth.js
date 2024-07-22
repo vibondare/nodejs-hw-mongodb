@@ -15,7 +15,6 @@ import {
   requestResetEmailSchema,
   resetPasswordSchema,
 } from '../validation/auth.js';
-import { authenticate } from '../middlewares/authenticate.js';
 
 const authRouter = Router();
 
@@ -37,7 +36,6 @@ authRouter.post('/refresh', ctrlWrapper(refreshUserSessionController));
 
 authRouter.post(
   '/send-reset-email',
-  authenticate,
   validateBody(requestResetEmailSchema),
   ctrlWrapper(requestResetEmailController),
 );
