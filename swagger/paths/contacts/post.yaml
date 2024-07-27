@@ -11,15 +11,9 @@ requestBody:
       schema:
         type: object
         required:
-          - _id
           - name
           - phoneNumber
-          - userId
         properties:
-          _id:
-            description: "Contact's id"
-            type: string
-            example: 65e4decdd286b30065d54af9
           name:
             description: "Contact's name"
             type: string
@@ -41,14 +35,10 @@ requestBody:
             type: string
             enum: ['personal', 'home', 'work']
             example: 'personal'
-          userId:
-            description: "Id of the user who owns given contact"
-            type: string
-            example: 65e4decdd286b30065d54af9
           photo:
-            description: "Link to contact's photo"
             type: string
-            example: 'https://res.cloudinary.com/uqwgdu/image/upload/image.png'
+            format: binary
+            description: "File of the contact's photo"
 responses:
   '201':
     description: Creates a contact
@@ -72,4 +62,3 @@ responses:
               $ref: '../../components/schemas/contact.yaml'
   '401':
     $ref: '../../components/responses/401.yaml'
-

@@ -173,17 +173,10 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "_id",
                   "name",
-                  "phoneNumber",
-                  "userId"
+                  "phoneNumber"
                 ],
                 "properties": {
-                  "_id": {
-                    "description": "Contact's id",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
-                  },
                   "name": {
                     "description": "Contact's name",
                     "type": "string",
@@ -214,15 +207,10 @@
                     ],
                     "example": "personal"
                   },
-                  "userId": {
-                    "description": "Id of the user who owns given contact",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
-                  },
                   "photo": {
-                    "description": "Link to contact's photo",
                     "type": "string",
-                    "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+                    "format": "binary",
+                    "description": "File of the contact's photo"
                   }
                 }
               }
@@ -384,9 +372,9 @@
                     "example": "personal"
                   },
                   "photo": {
-                    "description": "Link to contact's photo",
                     "type": "string",
-                    "example": "<https://res.cloudinary.com/uqwgdu/image/upload/image.png>"
+                    "format": "binary",
+                    "description": "File of the contact's photo"
                   }
                 }
               }
@@ -542,7 +530,7 @@
             "example": "65e4decdd286b30065d54af9"
           },
           "photo": {
-            "description": "Link to contact's photo",
+            "description": "Link to the contact's photo",
             "type": "string",
             "example": "<https://res.cloudinary.com/uqwgdu/image/upload/image.png>"
           }
